@@ -7,23 +7,26 @@
   <style>
     body {
       margin: 0;
+      background: url('background.png') no-repeat center center fixed;
       background-size: cover;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
     .container {
       position: relative;
       width: 100vw;
       height: 100vh;
     }
 
-.wheel-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90vw;
-  height: 90vw;
-  max-width: 400px;
-  max-height: 400px;
-}
+    .wheel-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      height: 400px;
+    }
 
     .wheel {
       width: 100%;
@@ -31,26 +34,25 @@
       transition: transform 4s ease-out;
     }
 
-.pointer {
-  position: absolute;
-  top: -30px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 20vw;
-  max-width: 80px;
-  z-index: 10;
-}
+    .pointer {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      z-index: 10;
+    }
 
-.spin-btn {
-  position: absolute;
-  bottom: 5vh;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60vw;
-  max-width: 250px;
-  cursor: pointer;
-  z-index: 10;
-}
+    .spin-btn {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 250px;
+      cursor: pointer;
+      z-index: 10;
+    }
+
     .popup {
       display: none;
       position: fixed;
@@ -62,10 +64,10 @@
       z-index: 999;
     }
 
-.popup img {
-  max-width: 90%;
-  max-height: 90%;
-}
+    .popup img {
+      max-width: 90%;
+      max-height: 90%;
+    }
 
     .close-btn {
       position: absolute;
@@ -112,13 +114,14 @@
     <span class="close-btn" onclick="closePopup()">×</span>
     <div id="popup-container" style="position: relative; text-align: center;">
       <img id="popup-img" src="" alt="Scroll" />
-<a id="resume-link"
+    <a id="resume-link"
    href="Dhrumil-Mehta-Resume.pdf"
    download
    target="_blank"
-   style="display: none; position: absolute; bottom: 8%; left: 50%; transform: translateX(-50%); z-index: 1000;">
-  <img src="download button.png" alt="Download Resume" style="width: 60vw; max-width: 300px; cursor: pointer;" />
+   style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;">
+  <img src="download button.png" alt="Download Resume" style="width: 300px; cursor: pointer;" />
 </a>
+
     </div>
   </div>
 
@@ -152,7 +155,7 @@
 
       if (index >= scrolls.length) {
         totalRotation += 1755;
-        wheel.style.transform = `rotate(${totalRotation}deg)`;
+        wheel.style.transform = rotate(${totalRotation}deg);
         setTimeout(() => {
           endMsg.style.display = "flex";
         }, 4000);
@@ -164,7 +167,7 @@
       const spinAmount = index === 0 ? firstSpin : subsequentSpin;
 
       totalRotation += spinAmount;
-      wheel.style.transform = `rotate(${totalRotation}deg)`;
+      wheel.style.transform = rotate(${totalRotation}deg);
 
       setTimeout(() => {
         img.src = scrolls[index];
