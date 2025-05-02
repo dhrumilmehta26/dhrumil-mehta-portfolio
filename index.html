@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dhrumil Mehta | Spin Portfolio</title>
+  <style>
+    body {
+      margin: 0;
+      background: url('background.png') no-repeat center center fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .wheel-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      height: 400px;
+    }
+
+    .wheel {
+      width: 100%;
+      height: 100%;
+      transition: transform 4s ease-out;
+    }
+
+    .pointer {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      z-index: 10;
+    }
+
+    .spin-btn {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 250px;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .popup img {
+      max-width: 90%;
+      max-height: 90%;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      font-size: 30px;
+      color: white;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    .resume-link {
+      color: gold;
+      font-size: 20px;
+      margin-top: 15px;
+      display: block;
+      text-align: center;
+    }
+
+    #end-message {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="wheel-container">
+      <img src="pointer.png" class="pointer" alt="Pointer" />
+      <img src="spin wheel.png" id="wheel" class="wheel" alt="Wheel" />
+    </div>
+    <img src="button.png" class="spin-btn" onclick="spin()" alt="Spin Button" />
+  </div>
+
+  <!-- Scroll Popup -->
+  <div class="popup" id="popup">
+    <span class="close-btn" onclick="closePopup()">×</span>
+    <div id="popup-container" style="position: relative; text-align: center;">
+      <img id="popup-img" src="" alt="Scroll" />
+    <a id="resume-link"
+   href="Dhrumil-Mehta-Resume.pdf"
+   download
+   target="_blank"
+   style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;">
+  <img src="download button.png" alt="Download Resume" style="width: 300px; cursor: pointer;" />
+</a>
+
+    </div>
+  </div>
+
+  <!-- End Message Popup -->
+  <div class="popup" id="end-message">
+    <span class="close-btn" onclick="closeEnd()">×</span>
+    <img src="end slide.png" alt="End Slide" style="max-width: 90%; max-height: 90%;">
+  </div>
+
+  <script>
+    const wheel = document.getElementById("wheel");
+    const scrolls = [
+      "profile.png",
+      "expertise.png",
+      "crm specialist boutiqaat.png",
+      "assistant manager marketing at mirraw.png",
+      "education.png",
+      "certificate.png",
+      "resume.png",
+      "contact details.png"
+    ];
+
+    let index = 0;
+    let totalRotation = 0;
+
+    function spin() {
+      const popup = document.getElementById("popup");
+      const endMsg = document.getElementById("end-message");
+      const img = document.getElementById("popup-img");
+      const resumeLink = document.getElementById("resume-link");
+
+      if (index >= scrolls.length) {
+        totalRotation += 1755;
+        wheel.style.transform = `rotate(${totalRotation}deg)`;
+        setTimeout(() => {
+          endMsg.style.display = "flex";
+        }, 4000);
+        return;
+      }
+
+      const firstSpin = 1800 - 22.5;
+      const subsequentSpin = 1755;
+      const spinAmount = index === 0 ? firstSpin : subsequentSpin;
+
+      totalRotation += spinAmount;
+      wheel.style.transform = `rotate(${totalRotation}deg)`;
+
+      setTimeout(() => {
+        img.src = scrolls[index];
+
+        setTimeout(() => {
+          popup.style.display = "flex";
+          resumeLink.style.display = scrolls[index].includes("resume") ? "block" : "none";
+          index++;
+        }, 1000);
+      }, 4000);
+    }
+
+    function closePopup() {
+      document.getElementById("popup").style.display = "none";
+    }
+
+    function closeEnd() {
+      document.getElementById("end-message").style.display = "none";
+    }
+  </script>
+
+</body>
+</html>
