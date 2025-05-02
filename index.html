@@ -8,7 +8,14 @@
     body {
       margin: 0;
       background: url('background.png') no-repeat center center fixed;
-      background-size: cover;
+background-size: cover;
+}
+
+@media (max-width: 768px) {
+  body {
+    background: url('background-mobile.png') no-repeat center center fixed;
+    background-size: cover;
+  }
       font-family: Arial, sans-serif;
       overflow: hidden;
     }
@@ -147,38 +154,38 @@
     let index = 0;
     let totalRotation = 0;
 
-    function spin() {
-      const popup = document.getElementById("popup");
-      const endMsg = document.getElementById("end-message");
-      const img = document.getElementById("popup-img");
-      const resumeLink = document.getElementById("resume-link");
+function spin() {
+  const popup = document.getElementById("popup");
+  const endMsg = document.getElementById("end-message");
+  const img = document.getElementById("popup-img");
+  const resumeLink = document.getElementById("resume-link");
 
-      if (index >= scrolls.length) {
-        totalRotation += 1755;
-        wheel.style.transform = rotate(${totalRotation}deg);
-        setTimeout(() => {
-          endMsg.style.display = "flex";
-        }, 4000);
-        return;
-      }
+  if (index >= scrolls.length) {
+    totalRotation += 1755;
+    wheel.style.transform = `rotate(${totalRotation}deg)`;
+    setTimeout(() => {
+      endMsg.style.display = "flex";
+    }, 4000);
+    return;
+  }
 
-      const firstSpin = 1800 - 22.5;
-      const subsequentSpin = 1755;
-      const spinAmount = index === 0 ? firstSpin : subsequentSpin;
+  const firstSpin = 1800 - 22.5;
+  const subsequentSpin = 1755;
+  const spinAmount = index === 0 ? firstSpin : subsequentSpin;
 
-      totalRotation += spinAmount;
-      wheel.style.transform = rotate(${totalRotation}deg);
+  totalRotation += spinAmount;
+  wheel.style.transform = `rotate(${totalRotation}deg)`;
 
-      setTimeout(() => {
-        img.src = scrolls[index];
+  setTimeout(() => {
+    img.src = scrolls[index];
 
-        setTimeout(() => {
-          popup.style.display = "flex";
-          resumeLink.style.display = scrolls[index].includes("resume") ? "block" : "none";
-          index++;
-        }, 1000);
-      }, 4000);
-    }
+    setTimeout(() => {
+      popup.style.display = "flex";
+      resumeLink.style.display = scrolls[index].includes("resume") ? "block" : "none";
+      index++;
+    }, 1000);
+  }, 4000);
+}
 
     function closePopup() {
       document.getElementById("popup").style.display = "none";
